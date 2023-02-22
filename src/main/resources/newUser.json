@@ -1,0 +1,23 @@
+{
+  "id": 11,
+  "name": "Mark Chambers",
+  "username": "SoccerPlayer",
+  "email": "markchambers@gmail.com",
+  "address": {
+    "street": "Henrys Str",
+    "suite": "Suite 12",
+    "city": "Rochester",
+    "zipcode": "123592-34",
+    "geo": {
+      "lat": "23.234",
+      "lng": "36.695"
+    }
+  },
+  "phone": "(234)345-1234",
+  "website": "soccer.info",
+  "company": {
+    "name": "SoccPlayer LLC",
+    "catchPhrase": "One bet-one win",
+    "bs": "Play and Win betting on soccer"
+  }
+}

@@ -1,6 +1,7 @@
-package Task_1.HttpTest;
+package tasks.HttpTest;
 
-import Task_1.User.User;
+import org.jsoup.Jsoup;
+import tasks.User.User;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -21,7 +22,6 @@ public class HttpUtil {
     static final String GET_USER_BY_USERNAME_URL = "https://jsonplaceholder.typicode.com/users?username={username}";
     static HttpResponse<String> response;
     static final Gson GSON = new Gson();
-
 
     public static int deleteUser (int userID) throws IOException, URISyntaxException, InterruptedException {
         String formattedURI = String.format(GET_USER_BY_ID_URL.replace("{id}", "%d"), userID);
@@ -99,3 +99,5 @@ public class HttpUtil {
                 .build();
     }
 }
+
+

@@ -1,9 +1,9 @@
-package Task_1.HttpTest;
+package tasks.HttpTest;
 
-import Task_1.User.Address;
-import Task_1.User.Company;
-import Task_1.User.Geolocation;
-import Task_1.User.User;
+import tasks.User.Address;
+import tasks.User.Company;
+import tasks.User.Geolocation;
+import tasks.User.User;
 
 import java.io.IOException;
 import java.net.URISyntaxException;

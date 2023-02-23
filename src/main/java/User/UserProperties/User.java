@@ -1,4 +1,4 @@
-package tasks.User;
+package User.UserProperties;
 
 import lombok.*;
 

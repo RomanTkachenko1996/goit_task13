@@ -16,10 +16,10 @@ import java.util.List;
 
 public class HttpTest {
     public static void main(String[] args) throws URISyntaxException, IOException, InterruptedException {
+        User user = new Gson().fromJson(new FileReader("src/main/resources/newUser.json"), User.class);
 
         //posting a new user
-        /*User user = new Gson().fromJson(new FileReader("src/main/resources/newUser.json"),User.class);
-        System.out.println("HttpUtil.postNewUser(user) = " + HttpUtil.postNewUser(user));*/
+        //System.out.println("HttpUtil.postNewUser(user) = " + HttpUtil.postNewUser(user));
 
         //putting a new username to existing user
         //System.out.println(HttpUtil.updateUser(1,"UKRAINE"));
@@ -28,14 +28,15 @@ public class HttpTest {
         //System.out.println("If user deleted status code:" + HttpUtil.deleteUser(2));
 
         //getting all users
-        /* List<User> list = new Gson().fromJson( HttpUtil.getAllUsers(), new TypeToken<List<User>>(){}.getType());
-        list.forEach(System.out::println);*/
+        //List<User> list = new Gson().fromJson( HttpUtil.getAllUsers(), new TypeToken<List<User>>(){}.getType());
+        //list.forEach(System.out::println);
 
         //getting a particular user by username
         //System.out.println("Bret Username: " + HttpUtil.getAllUsersByUserName("Bret"));
 
         //getting a particular user by ID
         //System.out.println(HttpUtil.getUserByID(2));
+
 
     }
 }

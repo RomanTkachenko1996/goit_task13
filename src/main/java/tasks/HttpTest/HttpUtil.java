@@ -1,80 +1,38 @@
 package tasks.HttpTest;
-
-
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import tasks.User.User;
 import com.google.gson.Gson;
-
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-
 
 public class HttpUtil {
-    private static final HttpClient client = HttpClient.newBuilder().build();
     static final String GET_ALL_USERS_URL = "https://jsonplaceholder.typicode.com/users";
-    static HttpResponse<String> response;
     static final Gson GSON = new Gson();
 
-    // TODO: Using HTTPClient, HTTPRequest, HTTPResponse
-    public static int deleteUser(int userID) throws IOException, URISyntaxException, InterruptedException {
-        String formattedURI = String.format(GET_ALL_USERS_URL + "/%d", userID);
-        HttpRequest deleteUser = deleteHttpRequest(formattedURI);
-        response = getHttpResponse(deleteUser);
-        return response.statusCode();
+    public static int deleteUserByID (int userID) throws IOException{
+        return Jsoup.connect(String.format(GET_ALL_USERS_URL + "/%d", userID))
+                .ignoreContentType(true)
+                .method(Connection.Method.DELETE)
+                .execute().statusCode();
     }
-
-    public static User updateUser(int userID, String username) throws IOException, URISyntaxException, InterruptedException {
-        User user = GSON.fromJson(getUserByID(userID), User.class);
+    public static String updateExistingUser(int userID, String username)throws IOException {
+        User user = GSON.fromJson(getUserByID(userID),User.class);
         user.setUsername(username);
-        String newUser = GSON.toJson(user);
-        String formattedURI = String.format(GET_ALL_USERS_URL + "/%d", userID);
-        HttpRequest updateUser = putHttpRequest(formattedURI, newUser);
-        response = getHttpResponse(updateUser);
-        System.out.println("Status Code: " + response.statusCode());
-        return GSON.fromJson(response.body(), User.class);
+        String json = GSON.toJson(user);
+        return Jsoup.connect(String.format(GET_ALL_USERS_URL + "/%d", userID))
+                .ignoreContentType(true)
+                .method(Connection.Method.PUT)
+                .requestBody(json)
+                .execute().body();
     }
-
-    public static User postNewUser(User user) throws URISyntaxException, IOException, InterruptedException {
-        String newUser = GSON.toJson(user);
-        HttpRequest postUser = postHttpRequest(newUser);
-        response = getHttpResponse(postUser);
-        System.out.println("Status Code: " + response.statusCode());
-        return GSON.fromJson(response.body(), User.class);
+    public static String postNewUser(User user) throws IOException {
+        return Jsoup.connect(GET_ALL_USERS_URL)
+                .ignoreContentType(true)
+                .followRedirects(false)
+                .method(Connection.Method.POST)
+                .requestBody(GSON.toJson(user))
+                .execute().body();
     }
-
-    private static HttpResponse<String> getHttpResponse(HttpRequest request) throws IOException, InterruptedException, URISyntaxException {
-        return client.send(request, HttpResponse.BodyHandlers.ofString());
-    }
-
-    private static HttpRequest postHttpRequest(String user) throws URISyntaxException {
-        return HttpRequest.newBuilder(new URI(GET_ALL_USERS_URL))
-                .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(user))
-                .build();
-    }
-
-    private static HttpRequest putHttpRequest(String uri, String user) throws URISyntaxException {
-        return HttpRequest.newBuilder(new URI(uri))
-                .header("Content-Type", "application/json")
-                .PUT(HttpRequest.BodyPublishers.ofString(user))
-                .build();
-    }
-
-    private static HttpRequest deleteHttpRequest(String uri) throws URISyntaxException {
-        return HttpRequest.newBuilder(new URI(uri))
-                .header("Content-Type", "application/json")
-                .DELETE()
-                .build();
-    }
-
-    // TODO: Using JSOUP
 
     public static String getUserByID(int userID) throws IOException {
         String formatted = String.format(GET_ALL_USERS_URL + "/%d", userID);

@@ -1,22 +1,24 @@
 package tasks.HttpTest;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-import tasks.User.Address;
-import tasks.User.Company;
-import tasks.User.Geolocation;
 import tasks.User.User;
-
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.List;
+import static tasks.HttpTest.HttpUtil.*;
 
 public class HttpTest {
     public static void main(String[] args) throws URISyntaxException, IOException, InterruptedException {
         User user = new Gson().fromJson(new FileReader("src/main/resources/newUser.json"), User.class);
+
+        //deleting user via jsoup
+       // System.out.println("deleteUserByID(2) = " + deleteUserByID(2));
+
+        //updating user via jsoup
+        //System.out.println("HttpUtil.updateExistingUser(2,\"MIKEWASOVSKI\") = " + HttpUtil.updateExistingUser(2, "MIKEWASOVSKI"));
+
+        //posting new user via jsoup
+        //System.out.println("HttpUtil.postNewUser(user) = " + HttpUtil.postNewUser(user));
 
         //posting a new user
         //System.out.println("HttpUtil.postNewUser(user) = " + HttpUtil.postNewUser(user));
